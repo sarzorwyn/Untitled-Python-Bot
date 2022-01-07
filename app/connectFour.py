@@ -39,7 +39,7 @@ class ConnectFour:
         twitterOutput += "1️⃣2️⃣3️⃣4️⃣5️⃣6️⃣7️⃣\n"
 
         twitterOutput += 'Player turn ▶ '
-        if self.active_player == 1:
+        if self.active_player == 2:
             twitterOutput += '🔵'  # blue circle and right arrow
 
         else:
@@ -116,9 +116,9 @@ class ConnectFour:
         :return: True if player won. False otherwise.
         """
 
-        self.active_player = 2 if self.active_player == 1 else 1
         self.num_turns += 1
         self.place_piece(int(col) - 1)
+        self.active_player = 2 if self.active_player == 1 else 1
         if self.check_win():
             self.games_won += 1
             return True
