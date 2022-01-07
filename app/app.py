@@ -55,15 +55,25 @@ def getNextMove(poll):
 
     return nextPosMoves[random.randrange(0, len(nextPosMoves) - 1)]
 
+def noVotes(poll):
+    for d in poll:
+        if d["votes"] != 0:
+            return False
+    return True
+
+
 if __name__ == '__main__':
     client = tweet.getClient()
     game = connectFour.ConnectFour.new_game()
-    pollOptions = createPollOptions(game)
-
-    pollID = client.create_tweet(poll_options=pollOptions[:4], poll_duration_minutes=5, text=game.board_to_emoji())
-    # time.sleep(300)
-    print(pollID.data['id'])
-    tweetId = pollID.data['id']
-    poll = getPollDetails(tweetId)
+    while True:
+        pollOptions = createPollOptions(game)
+        pollID = client.create_tweet(poll_options=pollOptions[:4], poll_duration_minutes=5, text=game.board_to_emoji())
+        time.sleep(310)
+        print(pollID.data['id'])
+        tweetId = pollID.data['id']
+        poll = getPollDetails(tweetId)
+        if noVotes(poll):
+            game = connectFour.ConnectFour.new_game()
+            continue
 
     # client.Poll()
