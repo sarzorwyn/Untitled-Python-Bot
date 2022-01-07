@@ -29,7 +29,7 @@ class ConnectFour:
             for col in range(NUM_COL):
                 if self.board[row][col] == 1:
                     twitterOutput += "🔴"  # red circle
-                if self.board[row][col] == 2:
+                elif self.board[row][col] == 2:
                     twitterOutput += "🔵"  # blue circle
                 else:
                     twitterOutput += "⚪"  # white circle
@@ -39,11 +39,11 @@ class ConnectFour:
         twitterOutput += "1️⃣2️⃣3️⃣4️⃣5️⃣6️⃣7️⃣\n"
 
         twitterOutput += 'Player turn ▶ '
-        if self.active_player == 1:
-            twitterOutput += '🔴'  # red circle and right arrow
+        if self.active_player == 2:
+            twitterOutput += '🔵'  # blue circle and right arrow
 
         else:
-            twitterOutput += '🔵'  # blue circle and right arrow
+            twitterOutput += '🔴'  # red circle and right arrow
 
         return twitterOutput
 
