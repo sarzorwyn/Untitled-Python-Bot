@@ -51,8 +51,6 @@ class ConnectFour:
         :return: True if player won. False otherwise.
         """
         win = (self.check_hor_win() | self.check_ver_win() | self.check_lDiag_win() | self.check_rDiag_win())
-        if win:
-            self.games_won += 1
         return win
 
     def check_hor_win(self):
@@ -98,3 +96,33 @@ class ConnectFour:
                 if self.board[i][j] == self.board[i-1][j+1] and self.board[i-1][j+1] == self.board[i-2][j+2] and self.board[i-2][j+2] == self.board[i-3][j+3]:
                     return True
         return False
+
+    def play_turn(self, col):
+        """
+        Current player starts turn
+        :param col: Player choice of column
+        :return: True if player won. False otherwise.
+        """
+
+        self.active_player = (self.num_turns % 2) + 1
+        self.num_turns += 1
+        self.place_piece(col)
+        if self.check_win():
+            self.games_won += 1
+            return True
+        return False
+
+    def place_piece(self, col):
+        """
+        Place a piece in the board.
+        :param col: Player choice of column
+        :return: True if valid. False otherwise
+        """
+        if self.board[0][col] != 0:
+            return False
+        for j in range(NUM_ROW):
+            if self.board[j][col] != 0:
+                break
+        self.board[j-1][col] = self.active_player
+        return True
+
