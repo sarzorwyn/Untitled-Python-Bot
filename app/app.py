@@ -46,14 +46,14 @@ def getNextMove(poll):
         if maxVote < d["votes"]:
             nextPosMoves.clear()
             nextPosMoves.append(d["label"])
-
             maxVote = d["votes"]
+
         elif maxVote == d["votes"]:
             nextPosMoves.append(d["label"])
 
         print("Option: " + d["label"] + ", Votes: " + str(d["votes"]))
 
-    return nextPosMoves[random.randrange(0, len(nextPosMoves) - 1)]
+    return int(nextPosMoves[random.randrange(0, len(nextPosMoves) - 1)])  # Random for tiebreaker
 
 def noVotes(poll):
     for d in poll:
@@ -67,13 +67,18 @@ if __name__ == '__main__':
     game = connectFour.ConnectFour.new_game()
     while True:
         pollOptions = createPollOptions(game)
-        pollID = client.create_tweet(poll_options=pollOptions[:4], poll_duration_minutes=5, text=game.board_to_emoji())
-        time.sleep(310)
+        pollID = client.create_tweet(poll_options=pollOptions, poll_duration_minutes=5, text=game.board_to_emoji())
+        time.sleep(60)
         print(pollID.data['id'])
         tweetId = pollID.data['id']
         poll = getPollDetails(tweetId)
-        if noVotes(poll):
+        if noVotes(poll):  # Restart game if no one votes
             game = connectFour.ConnectFour.new_game()
             continue
+        if game.play_turn(getNextMove(poll)):
+            game = connectFour.ConnectFour.new_game()
+            client.create_tweet(text="Congrats whoever won")  # need to create function to output game board
+
+
 
     # client.Poll()
