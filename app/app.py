@@ -36,7 +36,10 @@ def reweet(tweetId):
 
     return redirect(url_for('index'))
 
-
+# Returns a list of dictionary. E.g.[{'position': 1, 'label': 'awesome', 'votes': 1***REMOVED***, {'position': 2, 'label': 'nice', 'votes': 0***REMOVED***]
+def getPollDetails(tweetID):
+    response = client.get_tweet(id=tweetID, expansions="attachments.poll_ids")
+    return response.includes["polls"][0]["options"]
 
 
 
@@ -45,8 +48,8 @@ if __name__ == '__main__':
     #pollID = client.create_tweet(poll_options=['toast', 'toast toast toast'], poll_duration_minutes=5, text='Toast toast')
     # time.sleep(300)
     #print(pollID.data['id'])
-    client.get
     tweetId = 1479303080176803843 #pollID.data['id']
-    poll = client.get_tweet(id=tweetId, poll_fields=['duration_minutes','end_datetime','id','options','voting_status'])
-    print(poll)
+    poll = getPollDetails(tweetId)
+    for d in poll:
+        print("Option: " + d["label"] + ", Votes: " + str(d["votes"]))
     #client.Poll()
