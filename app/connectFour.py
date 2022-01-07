@@ -17,7 +17,7 @@ class ConnectFour:
         :return: a game object
         """
         board = [[0] * NUM_COL for i in range(NUM_ROW)]
-        game = ConnectFour(board, 0, 1, 0)
+        game = ConnectFour(board, 0, 0, 0)
         return game
 
     def board_to_emoji(self):
