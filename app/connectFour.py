@@ -70,9 +70,9 @@ class ConnectFour:
         Checks for horizontal win condition
         :return: True if player won. False otherwise.
         """
-        for j in range(NUM_ROW - 3):
-            for i in range(NUM_COL):
-                if self.board[i][j] == self.board[i][j+1] and self.board[i][j+1] == self.board[i][j+2] and self.board[i][j+2] == self.board[i][j+3]:
+        for j in range(NUM_COL - 3):
+            for i in range(NUM_ROW):
+                if self.board[i][j] != 0 and self.board[i][j] == self.board[i][j+1] and self.board[i][j+1] == self.board[i][j+2] and self.board[i][j+2] == self.board[i][j+3]:
                     return True
         return False
 
@@ -81,9 +81,9 @@ class ConnectFour:
         Checks for vertical win condition
         :return: True if player won. False otherwise.
         """
-        for i in range(NUM_COL - 3):
-            for j in range(NUM_ROW):
-                if self.board[i][j] == self.board[i+1][j] and self.board[i+1][j] == self.board[i+2][j] and self.board[i+2][j] == self.board[i+3][j]:
+        for i in range(NUM_ROW - 3):
+            for j in range(NUM_COL):
+                if self.board[i][j] != 0 and self.board[i][j] == self.board[i+1][j] and self.board[i+1][j] == self.board[i+2][j] and self.board[i+2][j] == self.board[i+3][j]:
                     return True
         return False
 
@@ -92,9 +92,9 @@ class ConnectFour:
         Checks for left diagonal win condition
         :return: True if player won. False otherwise.
         """
-        for i in range(3, NUM_COL):
-            for j in range(3, NUM_ROW):
-                if self.board[i][j] == self.board[i-1][j-1] and self.board[i-1][j-1] == self.board[i-2][j-2] and self.board[i-2][j-2] == self.board[i-3][j-3]:
+        for i in range(3, NUM_ROW):
+            for j in range(3, NUM_COL):
+                if self.board[i][j] != 0 and self.board[i][j] == self.board[i-1][j-1] and self.board[i-1][j-1] == self.board[i-2][j-2] and self.board[i-2][j-2] == self.board[i-3][j-3]:
                     return True
         return False
 
@@ -103,9 +103,9 @@ class ConnectFour:
         Checks for right diagonal win condition
         :return: True if player won. False otherwise.
         """
-        for i in range(3, NUM_COL):
-            for j in range(NUM_ROW-3):
-                if self.board[i][j] == self.board[i-1][j+1] and self.board[i-1][j+1] == self.board[i-2][j+2] and self.board[i-2][j+2] == self.board[i-3][j+3]:
+        for i in range(3, NUM_ROW):
+            for j in range(NUM_COL-3):
+                if self.board[i][j] != 0 and self.board[i][j] == self.board[i-1][j+1] and self.board[i-1][j+1] == self.board[i-2][j+2] and self.board[i-2][j+2] == self.board[i-3][j+3]:
                     return True
         return False
 
@@ -118,7 +118,7 @@ class ConnectFour:
 
         self.active_player = (self.num_turns % 2) + 1
         self.num_turns += 1
-        self.place_piece(col)
+        self.place_piece(int(col) - 1)
         if self.check_win():
             self.games_won += 1
             return True
@@ -135,6 +135,9 @@ class ConnectFour:
         for j in range(NUM_ROW):
             if self.board[j][col] != 0:
                 break
-        self.board[j-1][col] = self.active_player
+        if self.board[j][col] != 0:
+            self.board[j-1][col] = self.active_player
+        else:
+            self.board[j][col] = self.active_player
         return True
 
