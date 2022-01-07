@@ -15,25 +15,17 @@ app.config.from_object(config.config['development'])
 
 app.register_error_handler(404, page_not_found)
 
+def createPollOptions(game):
+    validMoves = game.get_valid_moves()
 
-@app.route('/', methods=["GET", "POST"])
-def index():
-    query = 'Project Management lang:en -is:retweet'
-
-    if request.method == 'POST':
-        query = '{} lang:en -is:retweet'.format(request.form['query'])
-
-    max_results = 10
-    tweets = search.returnSearchTweetList(query, max_results)
-
-    return render_template('index.html', **locals())
-
-
-@app.route('/retweet/<string:tweetId>/', methods=["GET", "POST"])
-def reweet(tweetId):
-    search.retweet(tweetId)
-
-    return redirect(url_for('index'))
+    return validMoves
+    # pollOptions = []
+    #
+    # for move in validMoves:
+    #     for i in range(1, 21):
+    #         s = s.replace(chr(0x245f + i), str(i))
+    #     return s.replace('\u24ea', '0')
+    #     poll_options.append(move)
 
 
 # Returns a list of dictionary. E.g.[{'position': 1, 'label': 'awesome', 'votes': 1}, {'position': 2, 'label': 'nice', 'votes': 0}]
@@ -45,9 +37,9 @@ def getPollDetails(tweetID):
 if __name__ == '__main__':
     client = tweet.getClient()
     game = connectFour.ConnectFour.new_game()
-    print(game.board_to_emoji())
+    pollOptions = createPollOptions(game)
 
-    pollID = client.create_tweet(poll_options=['🍞', '🥐'], poll_duration_minutes=5, text=game.board_to_emoji())
+    pollID = client.create_tweet(poll_options=pollOptions[:4], poll_duration_minutes=5, text=game.board_to_emoji())
     # time.sleep(300)
     print(pollID.data['id'])
     tweetId = pollID.data['id']
