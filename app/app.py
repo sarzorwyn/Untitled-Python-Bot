@@ -1,3 +1,5 @@
+import time
+
 from flask import Flask, render_template, url_for, redirect, request
 import config
 import tweet
@@ -40,5 +42,11 @@ def reweet(tweetId):
 
 if __name__ == '__main__':
     client = tweet.getClient()
-    client.create_tweet(poll_options=['Yes', 'No'], poll_duration_minutes=5, text='Is kaya toast delicious???')
-    client.Poll()
+    #pollID = client.create_tweet(poll_options=['toast', 'toast toast toast'], poll_duration_minutes=5, text='Toast toast')
+    # time.sleep(300)
+    #print(pollID.data['id'])
+    client.get
+    tweetId = 1479303080176803843 #pollID.data['id']
+    poll = client.get_tweet(id=tweetId, poll_fields=['duration_minutes','end_datetime','id','options','voting_status'])
+    print(poll)
+    #client.Poll()
