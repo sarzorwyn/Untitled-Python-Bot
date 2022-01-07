@@ -12,7 +12,8 @@ class ConnectFour:
 
     @staticmethod
     def new_game():
-        """Creates a new empty board for a new game
+        """
+        Creates a new empty board for a new game
 
         :return: a game object
         """
@@ -21,7 +22,10 @@ class ConnectFour:
         return game
 
     def board_to_emoji(self):
-        """ Converts the game to superior emojis
+        """
+        Converts the game to superior emojis
+
+        :return: board in emojis
         """
         twitterOutput = ''
 
@@ -56,6 +60,9 @@ class ConnectFour:
                 validCols.append(str(val))
 
         return validCols
+
+    def get_active_player(self):
+        return self.active_player
 
     def check_win(self):
         """

@@ -20,7 +20,7 @@ app.register_error_handler(404, page_not_found)
 def createPollOptions(game):
     validMoves = game.get_valid_moves()
     while len(validMoves) > TWITTER_MAX_POLL_OPTIONS:
-        index = random.randrange(0, len(validMoves) - 1)
+        index = random.randrange(0, len(validMoves))
         validMoves.pop(index)
 
     return validMoves
@@ -58,25 +58,37 @@ def noVotes(poll):
             return False
     return True
 
+def sendWinnerTweet(client, winner):
+    if winner == 1:
+        winnerIcon += '🔴'  # red circle
+    else:
+        winnerIcon += '🔵'  # blue circle
+
+    output = '🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊\n'
+    output += '                    Congratulations to ' + winnerIcon
+    output += '\n🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊\n'
+
+    output += game.board_to_emoji()
+    client.create_tweet(text=output)
+
 
 if __name__ == '__main__':
     client = tweet.getClient()
     game = connectFour.ConnectFour.new_game()
     while True:
         pollOptions = createPollOptions(game)
-        pollID = client.create_tweet(poll_options=pollOptions, poll_duration_minutes=5, text=game.board_to_emoji())
+        pollID = client.create_tweet(poll_options=pollOptions, poll_duration_minutes=5, text=game.board_to_emoji()) # 5mins is min duration
         time.sleep(40)
         print(pollID.data['id'])
         tweetId = pollID.data['id']
         poll = getPollDetails(tweetId)
-        if noVotes(poll):  # Restart game if no one votes
-            print("no votesesss!!OIJHDFIWHDI")
-            game = connectFour.ConnectFour.new_game()
-            continue
+        # if noVotes(poll):  # Restart game if no one votes
+        #     print("no votesesss!!OIJHDFIWHDI")
+        #     game = connectFour.ConnectFour.new_game()
+        #     continue
         if game.play_turn(getNextMove(poll)):
-            print("well shit")
+            sendWinnerTweet(client, game.get_active_player())  # need to create function to output game board
             game = connectFour.ConnectFour.new_game()
-            client.create_tweet(text="Congrats whoever won")  # need to create function to output game board
 
 
 
