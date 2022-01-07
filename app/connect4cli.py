@@ -4,10 +4,12 @@ game = ConnectFour.new_game()
 player = 1
 while True:
     print(game.board_to_emoji())
+    print(game.board)
     col = int(input("Enter a column number"))
     if game.play_turn(col):
         break
     player = game.active_player
+    print(player)
 
 print(game.board_to_emoji())
 
