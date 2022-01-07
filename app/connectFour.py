@@ -17,7 +17,7 @@ class ConnectFour:
         :return: a game object
         """
         board = [[0] * NUM_COL for i in range(NUM_ROW)]
-        game = ConnectFour(board, 0, 0, 0)
+        game = ConnectFour(board, 0, 1, 0)
         return game
 
     def board_to_emoji(self):
@@ -39,7 +39,7 @@ class ConnectFour:
         twitterOutput += "1️⃣2️⃣3️⃣4️⃣5️⃣6️⃣7️⃣\n"
 
         twitterOutput += 'Player turn ▶ '
-        if self.active_player == 2:
+        if self.active_player == 1:
             twitterOutput += '🔵'  # blue circle and right arrow
 
         else:
@@ -116,7 +116,7 @@ class ConnectFour:
         :return: True if player won. False otherwise.
         """
 
-        self.active_player = (self.num_turns % 2) + 1
+        self.active_player = 2 if self.active_player == 1 else 1
         self.num_turns += 1
         self.place_piece(int(col) - 1)
         if self.check_win():
