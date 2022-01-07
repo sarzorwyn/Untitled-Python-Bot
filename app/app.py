@@ -38,6 +38,22 @@ def getPollDetails(tweetID):
     response = client.get_tweet(id=tweetID, expansions="attachments.poll_ids")
     return response.includes["polls"][0]["options"]
 
+def getNextMove(poll):
+    nextPosMoves = []
+    maxVote = 0
+
+    for d in poll:
+        if maxVote < d["votes"]:
+            nextPosMoves.clear()
+            nextPosMoves.append(d["label"])
+
+            maxVote = d["votes"]
+        elif maxVote == d["votes"]:
+            nextPosMoves.append(d["label"])
+
+        print("Option: " + d["label"] + ", Votes: " + str(d["votes"]))
+
+    return nextPosMoves[random.randrange(0, len(nextPosMoves) - 1)]
 
 if __name__ == '__main__':
     client = tweet.getClient()
@@ -49,6 +65,5 @@ if __name__ == '__main__':
     print(pollID.data['id'])
     tweetId = pollID.data['id']
     poll = getPollDetails(tweetId)
-    for d in poll:
-        print("Option: " + d["label"] + ", Votes: " + str(d["votes"]))
+
     # client.Poll()
