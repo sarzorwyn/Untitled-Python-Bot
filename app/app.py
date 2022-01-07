@@ -4,7 +4,9 @@ from flask import Flask, render_template, url_for, redirect, request
 import config
 import tweet
 import connectFour
+import random
 
+TWITTER_MAX_POLL_OPTIONS = 4
 
 def page_not_found(e):
     return render_template('404.html'), 404
@@ -17,9 +19,12 @@ app.register_error_handler(404, page_not_found)
 
 def createPollOptions(game):
     validMoves = game.get_valid_moves()
+    while len(validMoves) > TWITTER_MAX_POLL_OPTIONS:
+        index = random.randrange(0, len(validMoves) - 1)
+        validMoves.pop(index)
 
     return validMoves
-    # pollOptions = []
+    #
     #
     # for move in validMoves:
     #     for i in range(1, 21):
