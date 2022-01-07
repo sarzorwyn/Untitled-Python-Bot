@@ -60,13 +60,12 @@ def noVotes(poll):
 
 def sendWinnerTweet(client, winner):
     if winner == 1:
-        winnerIcon += '🔴'  # red circle
+        winnerIcon = '🔴'  # red circle
     else:
-        winnerIcon += '🔵'  # blue circle
+        winnerIcon = '🔵'  # blue circle
 
-    output = '🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊\n'
-    output += '                    Congratulations to ' + winnerIcon
-    output += '\n🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊\n'
+    output = '🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊\n'
+    output += 'The winner is ' + winnerIcon + '!'
 
     output += game.board_to_emoji()
     client.create_tweet(text=output)

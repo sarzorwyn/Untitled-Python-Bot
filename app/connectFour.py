@@ -61,6 +61,9 @@ class ConnectFour:
 
         return validCols
 
+    def get_num_turns(self):
+        return self.num_turns
+
     def get_active_player(self):
         return self.active_player
 
@@ -125,10 +128,11 @@ class ConnectFour:
 
         self.num_turns += 1
         self.place_piece(int(col) - 1)
-        self.active_player = 2 if self.active_player == 1 else 1
         if self.check_win():
             self.games_won += 1
             return True
+
+        self.active_player = 2 if self.active_player == 1 else 1
         return False
 
     def place_piece(self, col):
