@@ -41,15 +41,13 @@ def getPollDetails(tweetID):
     response = client.get_tweet(id=tweetID, expansions="attachments.poll_ids")
     return response.includes["polls"][0]["options"]
 
-
-
 if __name__ == '__main__':
     client = tweet.getClient()
-    #pollID = client.create_tweet(poll_options=['toast', 'toast toast toast'], poll_duration_minutes=5, text='Toast toast')
+    pollID = client.create_tweet(poll_options=['🍞', '🥐'], poll_duration_minutes=5, text='Toast?')
     # time.sleep(300)
-    #print(pollID.data['id'])
-    tweetId = 1479303080176803843 #pollID.data['id']
+    # print(pollID.data['id'])
+    tweetId = pollID.data['id']
     poll = getPollDetails(tweetId)
     for d in poll:
         print("Option: " + d["label"] + ", Votes: " + str(d["votes"]))
-    #client.Poll()
+    # client.Poll()
