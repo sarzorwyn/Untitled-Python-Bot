@@ -24,13 +24,6 @@ def createPollOptions(game):
         validMoves.pop(index)
 
     return validMoves
-    #
-    #
-    # for move in validMoves:
-    #     for i in range(1, 21):
-    #         s = s.replace(chr(0x245f + i), str(i))
-    #     return s.replace('\u24ea', '0')
-    #     poll_options.append(move)
 
 
 # Returns a list of dictionary. E.g.[{'position': 1, 'label': 'awesome', 'votes': 1***REMOVED***, {'position': 2, 'label': 'nice', 'votes': 0***REMOVED***]
