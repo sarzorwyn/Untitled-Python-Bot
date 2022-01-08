@@ -60,7 +60,7 @@ def noVotes(poll):
             return False
     return True
 
-def sendWinnerTweet(client, winner):
+def sendWinnerTweet(client, winner, game):
     if winner == 1:
         winnerIcon = '🔴'  # red circle
     else:
@@ -69,7 +69,9 @@ def sendWinnerTweet(client, winner):
     output = '🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊\n'
     output += 'The winner is ' + winnerIcon + '!\n'
 
-    output += game.board_to_emoji()
+    board_output = game.board_to_emoji()
+    output = output + board_output[:board_output.rfind('\n')]
+    output += "\nCurrent Score: 🔴 " + str(game.games_won[1]) + " 🆚 "+ str(game.games_won[2]) + " 🔵 "
     client.create_tweet(text=output)
 
 
@@ -88,7 +90,7 @@ if __name__ == '__main__':
         #     game = connectFour.ConnectFour.new_game()
         #     continue
         if game.play_turn(getNextMove(poll)):
-            sendWinnerTweet(client, game.get_active_player())  # need to create function to output game board
+            sendWinnerTweet(client, game.get_active_player(), game)  # need to create function to output game board
             game = connectFour.ConnectFour.new_game()
 
 
