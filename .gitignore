@@ -9,3 +9,4 @@ app/__pycache__/tweet.cpython-37.pyc
 .idea/Untitled-Python-Bot.iml
 .idea/vcs.xml
 *.pyc
+app/config.py
