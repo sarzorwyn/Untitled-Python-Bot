@@ -11,7 +11,7 @@ We chose **Connect Four** as it is a game that is easy for multiple players to j
 _Twitter plays Connect Four_ is a Twitter bot that simulates a game of Connect Four by choosing the highest voted choice in a poll. Connect Four is a game where players are required, as the name suggests, to connect four of their pieces either vertically, horizontally or diagonally. The game runs on a fixed timer and checks for the most voted choice every 5 minutes. If more than one choice is tied, a random choice will be picked out of the tied choices.
 
 ## How we built it
-We made the bot entirely in **python**, and all calls to the **Twitter API** utilizes the **Tweety** Python Library to translate calls. The newer Twitter API v2 was paramount in allowing us to create this with better poll support as well.
+We made the bot entirely in **python**, and all calls to the **Twitter API** utilizes the **Tweepy** Python Library to translate calls. The newer Twitter API v2 was paramount in allowing us to create this with better poll support as well.
 
 ## Challenges we ran into
 The original design choice was to allow players to vote from every possible choice. However, the reality was that the polls were limited to **4 choices**. A compromise was to keep it to 4 random choices out of the 7 possible roles available. While it made the simulation different from the actual game, it also made voting more focused to fewer choices. We believe it also lends to the overall chaotic theme of the project.
