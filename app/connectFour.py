@@ -7,7 +7,7 @@ class ConnectFour:
     def __init__(self, board, num_turns, active_player, game_won):
         self.board = board  # 2d array
         self.num_turns = num_turns  # number of turns to check if board filled
-        self.active_player = active_player  # {1, 2***REMOVED***
+        self.active_player = active_player  # {1, 2}
         self.games_won = game_won  # tracks the score
 
     @staticmethod
