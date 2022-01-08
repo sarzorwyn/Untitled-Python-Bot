@@ -28,7 +28,7 @@ def createPollOptions(game):
     return validMoves
 
 
-# Returns a list of dictionary. E.g.[{'position': 1, 'label': 'awesome', 'votes': 1***REMOVED***, {'position': 2, 'label': 'nice', 'votes': 0***REMOVED***]
+# Returns a list of dictionary. E.g.[{'position': 1, 'label': 'awesome', 'votes': 1}, {'position': 2, 'label': 'nice', 'votes': 0}]
 def getPollDetails(tweetID):
     response = client.get_tweet(id=tweetID, expansions="attachments.poll_ids")
     return response.includes["polls"][0]["options"]
