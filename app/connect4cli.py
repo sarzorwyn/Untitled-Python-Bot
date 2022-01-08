@@ -9,10 +9,11 @@ while True:
     if game.play_turn(col):
         break
     player = game.active_player
+
     print(player)
 
 print(game.board_to_emoji())
-
+print(game.games_won)
 input("Player " + str(player) + " Won!!.\nPress anything to exit")
 
 
