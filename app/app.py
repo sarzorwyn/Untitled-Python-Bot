@@ -7,6 +7,8 @@ import connectFour
 import random
 
 TWITTER_MAX_POLL_OPTIONS = 4
+POLL_TIME = 5  # In minutes
+ROUND_TIME = 300  # In seconds
 
 def page_not_found(e):
     return render_template('404.html'), 404
@@ -76,8 +78,8 @@ if __name__ == '__main__':
     game = connectFour.ConnectFour.new_game()
     while True:
         pollOptions = createPollOptions(game)
-        pollID = client.create_tweet(poll_options=pollOptions, poll_duration_minutes=5, text=game.board_to_emoji()) # 5mins is min duration
-        time.sleep(40)
+        pollID = client.create_tweet(poll_options=pollOptions, poll_duration_minutes=POLL_TIME, text=game.board_to_emoji()) # 5mins is min duration
+        time.sleep(ROUND_TIME)
         print(pollID.data['id'])
         tweetId = pollID.data['id']
         poll = getPollDetails(tweetId)
