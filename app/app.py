@@ -67,7 +67,7 @@ def sendWinnerTweet(client, winner):
         winnerIcon = '🔵'  # blue circle
 
     output = '🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊\n'
-    output += 'The winner is ' + winnerIcon + '!'
+    output += 'The winner is ' + winnerIcon + '!\n'
 
     output += game.board_to_emoji()
     client.create_tweet(text=output)
