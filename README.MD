@@ -1,5 +1,7 @@
 ![Intro](screenshots/Project_image.jpg)
 
+The bot can be accessed on Twitter [here](https://twitter.com/Connect4Vote).
+
 ## Inspiration
 We once watched a YouTube video by PolyMars where he thought of playing a game of snake using alternative methods, namely **Twitter**. Since then, the Twitter API has a lot more features that made us think of how we can explore the space of alternative ways to play games.
 
